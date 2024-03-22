@@ -1,4 +1,4 @@
-import 'package:chat_bot_gemini/constants.dart';
+
 import 'package:chat_bot_gemini/views/chat_screen.dart';
 import 'package:flutter/material.dart';
 

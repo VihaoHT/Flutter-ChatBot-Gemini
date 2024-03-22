@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:intl/intl.dart';
 
+import '../model/message.dart';
+import 'widget/messages.dart';
+
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
 
@@ -57,6 +60,8 @@ class _ChatScreenState extends State<ChatScreen> {
               );
             },
           )),
+
+          //! Chat Input
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 15),
             child: Row(
@@ -74,6 +79,8 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                 ),
                 const Spacer(),
+
+                //! Send Button
                 IconButton(
                   onPressed: () {
                     sendMessage();
@@ -81,12 +88,12 @@ class _ChatScreenState extends State<ChatScreen> {
                   padding: const EdgeInsets.all(15),
                   iconSize: 30,
                   style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(const Color(0xFF9575CD)),
+                      backgroundColor:
+                          MaterialStateProperty.all(const Color(0xFF9575CD)),
                       foregroundColor: MaterialStateProperty.all(Colors.white),
                       shape: MaterialStateProperty.all(const CircleBorder())),
                   icon: const Icon(Icons.send),
                 ),
-                
               ],
             ),
           )
@@ -94,61 +101,4 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
     );
   }
-}
-
-class Messages extends StatelessWidget {
-  const Messages(
-      {super.key,
-      required this.isUser,
-      required this.message,
-      required this.date});
-
-  final bool isUser;
-  final String message;
-  final String date;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(15),
-      margin: const EdgeInsets.symmetric(vertical: 15).copyWith(
-        left: isUser ? 100 : 10,
-        right: isUser ? 10 : 100,
-      ),
-      decoration: BoxDecoration(
-        color: isUser
-            ? const Color.fromARGB(255, 9, 48, 79)
-            : Colors.grey.shade300,
-        borderRadius: BorderRadius.only(
-          topLeft: const Radius.circular(10),
-          bottomLeft: isUser ? const Radius.circular(10) : Radius.zero,
-          topRight: const Radius.circular(10),
-          bottomRight: !isUser ? Radius.zero : const Radius.circular(10),
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            message,
-            style: TextStyle(color: isUser ? Colors.white : Colors.black),
-          ),
-          Text(
-            date,
-            style: TextStyle(color: isUser ? Colors.white : Colors.black),
-          ),
-          
-        ],
-      ),
-    );
-  }
-}
-
-class Message {
-  final bool isUser;
-  final String message;
-  final DateTime date;
-
-  Message({required this.isUser, required this.message, required this.date});
 }
